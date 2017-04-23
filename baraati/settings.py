@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q39wx34&&z-s4x^9$g(obab!&twgtk56nnl$xi+faksc-78(!7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['arcane-crag-31707.herokuapp.com','127.0.0.1']
 
