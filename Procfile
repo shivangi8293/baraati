@@ -1,1 +1,1 @@
-web: gunicorn baraati.wsgi --log-file -
+web: gunicorn baraati/baraati.wsgi --log-file -
