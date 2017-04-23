@@ -1,0 +1,60 @@
+{% extends 'homepage/base.html' %}
+{% load homepagetags %}
+{% load staticfiles %}
+{% block loadcss %}
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arima+Madurai:100,200,300,400,500,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/aboutUs.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/rotatingCards.css' %}>
+    <script src={% static 'homepage/js/aboutUs.js' %}></script>
+    <script src={% static 'homepage/js/rotatingCards.js' %}></script>
+
+{% endblock %}
+{% block content %}
+    <div style="height: 100%; width: 100%">
+        <video class="aboutUs" id="bgvid" playsinline autoplay muted loop>
+            <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+            <source src="{% static 'homepage/videos/motionSnow02.mp4' %}" type="video/mp4">
+            <!--<source src="http://thenewcode.com/assets/videos/polina.mp4" type="video/mp4">-->
+        </video>
+
+        {% getEventCards 'open_about' as eventList %}
+        {% for event in eventList %}
+            <div class="col-lg-{{ event.recent_events_card_id.card_width }} col-lg-offset-{{ event.recent_events_card_id.card_offset }}"
+                 style="height:600px">
+                <div class="card-container">
+                    <div class="card ">
+                        <div class="front">
+                            <div class="cover">
+                                <img class="card-img-top" src="{{ event.event_image_path.url }}"
+                                     alt="{{ event.image_name }}">
+                            </div>
+                            <div class="user">
+                                <img class="img-circle" src="{{ event.profile_image_path.url }}"
+                                     alt="{{ event.profile_image_name }}"/>
+                            </div>
+                            <div class="content">
+                                <div class="main">
+                                    <h5 class="name">{{ event.event_title|safe }}</h5>
+                                    <p class="profession">{{ event.event_body|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="header">
+                                <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                            </div>
+                            <div class="content">
+                                <div class="main">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-200"></div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

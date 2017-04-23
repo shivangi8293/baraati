@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load homepagetags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/homepage.css' %}>
+    <link rel="stylesheet" type="text/css" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/font-awesome.min.css' %}>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/homepage.css' %}>
+    {% block loadcss %}
+    {% endblock %}
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        .parallax {
+            /* The image used */
+            background-image: url('{% static 'homepage/images/homepage.jpg'%}');
+
+            /* Full height */
+            height: 100%;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            /* Create the parallax scrolling effect */
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!--<div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>-->
+        <ul class="nav navbar-nav navbar-center">
+            {% getNavigationMenus as navigation_menus %}
+            {% for menus in navigation_menus %}
+                {% getChildMenu menus.navMenuId as menuChild %}
+                {% if menus.navMenuId.parentNavMenu == -1 %}
+                    <li {% if forloop.counter == 1 %}class="active" {% endif %}><a
+                            {% if menus.navMenuId.urlPageName %}href="{% url menus.navMenuId.urlPageName %}"{% endif %}
+                            {% if menuChild is not None %}
+                            class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"{% endif %}>
+                        {{ menus.navMenuName }}{% if menuChild is not None %} <span class="caret"></span>{% endif %}</a>
+                        {% if menuChild is not None %}
+                            <ul class="dropdown-menu">
+                                {% for child in menuChild %}
+                                    <li><a href="{% url child.navMenuId.urlPageName %}">{{ child.navMenuName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+
+
+
+
+{% block content %}
+{% endblock %}
+
+<footer class="mt-5">
+    <div class="container-fluid bg-faded mt-5" style="background-color: #f5f5f5; height: 100px">
+        <div class="container">
+            <div class="row py-3" style="margin-top: 20px;width: auto">
+                <!-- footer column 1 start -->
+                <div class="col-md-3 col-xs-3 col-md-offset-2 col-xs-offset-2">
+                    <!-- row start -->
+                    <div class="row py-2">
+                        <div class="col-sm-3 hidden-md-down">
+                            <a class="bg-circle btn-info" href="{% url 'open_about' %}">
+                                <i class="fa fa-2x fa-fw fa-info" aria-hidden="true "></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h4>Info</h4>
+                            About us.
+                        </div>
+                    </div>
+                </div>
+                <!-- footer column 2 start -->
+                <!-- row end -->
+                <!-- footer column 1 end -->
+                <div class="col-md-3 col-xs-3">
+                    <!-- row start -->
+                    <div class="row py-2">
+                        <div class="col-sm-3 hidden-md-down">
+                            <a class="bg-circle btn-warning" href="{% url 'open_contact' %}">
+                                <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true "></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h4>Contact us</h4>
+                            <p>Why not?</p>
+                        </div>
+                    </div>
+                    <!-- row end -->
+
+                </div>
+                <!-- footer column 2 end -->
+                <!-- footer column 3 start -->
+                <div class="col-md-3  col-xs-3">
+                    <!-- row starting  -->
+                    <div class="row py-2">
+                        <div class="col-sm-3 hidden-md-down">
+                            <a class="bg-circle btn-danger" href="# ">
+                                <i class="fa fa-2x fa-fw fa-file-pdf-o" aria-hidden="true "></i>
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h4>Download pdf</h4>
+                            <p> You like print?</p>
+
+                        </div>
+                    </div>
+                    <!-- row ended -->
+                    <!-- row starting  -->
+
+                    <!-- row ended -->
+                </div>
+                <!-- footer column 3 end -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid bg-primary py-3">
+        <div class="container">
+            <div class="row py-3">
+                <div class="col-md-9" style="line-height: 80px">
+                    <p class="text-white">&#9400; Copyright 2017 <a href="{% url 'open_homepage' %}">baraati.com</a></p>
+                </div>
+                <div class="col-md-3">
+                    <div class="d-inline-block" style="height:80px; ">
+                        <div class="bg-circle-outline d-inline-block" style="text-align: center">
+                            <a href="https://www.facebook.com/" class="text-white"><i
+                                    class="fa fa-2x fa-fw fa-facebook"></i>
+                            </a>
+                        </div>
+
+                        <div class="bg-circle-outline d-inline-block" style="text-align: center">
+                            <a href="https://twitter.com/" class="text-white">
+                                <i class="fa fa-2x fa-fw fa-twitter"></i></a>
+                        </div>
+
+                        <div class="bg-circle-outline d-inline-block" style="text-align: center">
+                            <a href="https://www.linkedin.com/company/" class="text-white">
+                                <i class="fa fa-2x fa-fw fa-instagram"></i></a>
+                        </div>
+
+                        <div class="bg-circle-outline d-inline-block" style="text-align: center">
+                            <a href="https://www.linkedin.com/company/" class="text-white">
+                                <i class="fa fa-2x fa-fw fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+
+<script src={% static 'homepage/js/homepage.js' %}></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'homepage/base.html' %}
+{% load homepagetags %}
+{% load staticfiles %}
+{% block content %}
+    <div class="parallax" id="scroll-div">
+    </div>
+    <br>
+    <div class="col-lg-12" style="height:50px;"></div>
+    <div align="center"><h1 style="font-family:'Berlin Sans FB';"><strong>HOW IT WORKS</strong></h1>
+        <hr>
+    </div>
+    <div class="col-lg-12" style="height:50px;"></div>
+    <div class="clreafix"></div>
+    <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 animation-element bounce-up" align="center">
+        <div class="round-icon subject">
+            <i class="fa fa-gift fa-5x custom-icon" aria-hidden="true"></i>
+        </div>
+        <br>
+        <h5 class="home"><strong>CHOOSE YOUR PACKAGE</strong></h5>
+        <h6 class="home"> Choose your package or customize according to your requirement.</h6>
+    </div>
+
+    <div class=" col-lg-4 col-md-4 col-sm-4 animation-element bounce-up"  align="center">
+        <div class="round-icon subject" style="line-height: 200px;">
+            <i class="fa fa-pencil fa-4x custom-icon" aria-hidden="true"></i>
+        </div>
+        <br>
+        <h5 class="home"><strong>WRITE A LETTER</strong></h5>
+        <h6 class="home">Write to us your queries, your suggestions and your opinions.</h6>
+    </div>
+
+    <div class=" col-lg-3 col-md-3 col-sm-3 animation-element bounce-up" align="center">
+        <div class="round-icon subject" >
+            <i class="fa fa-thumbs-o-up fa-4x custom-icon" aria-hidden="true"></i>
+        </div>
+        <br>
+        <h5 class="home"><strong>ENJOY YOUR DAY</strong></h5>
+        <h6 class="home">We are here to make your day memorable and make it even more enjoyable.Plan your event here!</h6>
+    </div>
+
+      <br>
+    <div class="col-lg-12" style="height:50px;"></div>
+    <div align="center"><h1 style="font-family:'Berlin Sans FB';"><strong>RECENT EVENTS</strong></h1>
+        <hr>
+    </div>
+    <div class="col-lg-12" style="height:50px;"></div>
+    <div class="clreafix"></div>
+    {% getEventCards 'open_homepage' as eventList %}
+    {% for event in eventList %}
+        <div class="col-lg-{{ event.recent_events_card_id.card_width }} col-lg-offset-{{ event.recent_events_card_id.card_offset }}" style="height:600px">
+            <div class="card card-inverse card-danger text-center">
+                <img class="card-img-top" src="{{event.event_image_path.url }}" height="200px" width="300px" alt="{{event.image_name }}">
+                    <div class="card-block">
+                        <h5 class="card-title home">{{ event.event_title|safe }}</h5>
+                            <p class="card-text">{{ event.event_body|safe }}</p>
+                                <a href="#" class="btn">More</a>
+                                    <hr class="card">
+                    </div>
+            </div>
+            {% if event.event_footer %}
+                    <div class="event_footer">{{ event.event_footer|safe }}</div>
+                {% endif %}
+        </div>
+    {% endfor %}
+    <div class="col-lg-12" style="height:300px;"></div>
+    {% getPanels 'open_homepage' as panellist %}
+    {% for panel in panellist %}
+        <div class="col-lg-{{ panel.panel_id.panel_width }} col-lg-offset-{{ panel.panel_id.panel_offset }}">
+            <div class="panel panel-default panel-warning">
+                <div class="panel-heading">{{ panel.panel_header|safe }}</div>
+                <div class="panel-body">
+                    {{ panel.panel_body|safe }}
+                    <div class="pull-left">
+                        <input type="button" class="btn btn-primary" value="Base Package">
+                    </div>
+                    <div class="pull-right">
+                        <input type="button" class="btn btn-primary" value="Customize">
+                    </div>
+                </div>
+                {% if panel.panel_footer %}
+                    <div class="panel-footer">{{ panel.panel_footer|safe }}</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="clearfix"></div>
+
+
+
+    <script src={% static 'homepage/js/homepage.js' %}></script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'homepage/base.html' %}
+{% load gallerytags %}
+{% block loadcss %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href={% static 'homepage/css/gallery.css' %}>
+{% endblock %}
+{% block content %}
+    <div style="height: 100%">
+        <div class="col-lg-12" style="height:50px;"></div>
+        <section>
+            {% getImageFilter as imageFilters %}
+            <div class="board">
+                <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab">
+                        {% for imageFilter in imageFilters %}
+                            <li {% if forloop.counter == 1 %}class="active" {% endif %}>
+                                <a href="#{{ imageFilter.filter_id.filter_tag }}" data-toggle="tab"
+                                   title="{{ imageFilter.filter_id.filter_tag }}" style="width: 100%">
+                      <span class="round-tabs {{ imageFilter.filter_id.filter_tag }}"
+                            style="width: 100%; text-align: center">
+                             {{ imageFilter.filter_name }}
+                      </span>
+                                </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    {% for imageFilter in imageFilters %}
+                        <div class="tab-pane fade in {% if forloop.counter == 1 %}active {% endif %}"
+                             id="{{ imageFilter.filter_id.filter_tag }}">
+                            <div class="row container">
+                                {% getImageFromTags imageFilter.filter_id.filter_tag request as pagination_list %}
+                                {% if pagination_list is not None %}
+                                    {% getImageFromPage pagination_list as images %}
+                                    {% for image in images %}
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 thumbnail">
+                                            <a href="#" data-toggle="modal" data-target="#lightbox">
+                                                <img src="{{ image.image_path.url }}" alt="{{ image.image_name }}"
+                                                     class="img-responsive">
+                                            </a>
+                                        </div>
+
+                                    {% endfor %}
+                                    <div class="clearfix"></div>
+                                    <div style="text-align: center">
+                                        {% include 'gallery/pagination.html' with page=images %}</div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+
+
+                    <div id="lightbox" class="modal fade" tabindex="-1" role="dialog"
+                         aria-labelledby="myLargeModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="" alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <script src={% static 'homepage/js/homepage.js' %}></script>
+    <script src={% static 'homepage/js/jquery.easyPaginate.js' %}></script>
+{% endblock %}
