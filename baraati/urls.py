@@ -40,5 +40,3 @@ urlpatterns = [
     url(r'^services/light/', serviceViews.openServicesLightPage, name='open_services_light'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
