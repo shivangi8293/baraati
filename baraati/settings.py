@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-import dj_database_url
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q39wx34&&z-s4x^9$g(obab!&twgtk56nnl$xi+faksc-78(!7'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_S3_SECURE_URLS = False       # use http instead of https
+AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related query parameters for requests
+AWS_S3_ACCESS_KEY_ID = 'AKIAJO3T3JC4V4RKWR7A'     # enter your access key id
+AWS_S3_SECRET_ACCESS_KEY = 'qn4bhJG8HoKgMuzPEHojU8m14ZbPJk/EgD8q70lB'# enter your secret access key
+AWS_STORAGE_BUCKET_NAME = 'baraati'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,6 +53,8 @@ INSTALLED_APPS = [
     'faqs',
     'gallery',
     'services',
+    'storages',
+    'dj_database_url',
 ]
 
 MIDDLEWARE = [
