@@ -31,7 +31,7 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['arcane-crag-31707.herokuapp.com','127.0.0.1','baraati.herokuapp.com']
 
